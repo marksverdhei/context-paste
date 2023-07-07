@@ -38,6 +38,7 @@ def get_file_prompt(filename):
     language = ext.lstrip(".")
     return template.format(filename=filename, language=language, content=content)
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("pattern", help="Directory or file path pattern to process")
