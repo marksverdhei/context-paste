@@ -1,6 +1,6 @@
-import os
 import argparse
-import pathlib
+import os
+
 import pyperclip
 from transformers import AutoTokenizer
 
@@ -8,6 +8,7 @@ MAX_TOKENS = 3900
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
 
 templates = []
+
 
 def process_files(pattern):
     if os.path.isdir(pattern):
@@ -20,6 +21,7 @@ def process_files(pattern):
     else:
         print(f"Invalid pattern: {pattern}")
 
+
 def add_template(filename, content):
     template = """
 `{filename}`
@@ -28,19 +30,20 @@ def add_template(filename, content):
 ```
     """
     _, ext = os.path.splitext(filename)
-    language = ext.lstrip('.')
+    language = ext.lstrip(".")
     templates.append(template.format(filename=filename, language=language, content=content))
 
 
 def add_file_content(filepath):
     try:
-        with open(filepath, 'r') as f:
+        with open(filepath, "r") as f:
             content = f.read()
     except Exception as e:
         print(f"Error reading file {filepath}: {str(e)}")
         return
 
     add_template(filepath, content)
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -53,5 +56,6 @@ def main():
     pyperclip.copy(full_string)
     print("Copied file templates to clipboard!")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
