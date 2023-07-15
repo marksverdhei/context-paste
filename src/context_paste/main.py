@@ -45,7 +45,7 @@ def main():
     args = parser.parse_args()
     prompts = get_prompts_from_files(args.pattern)
     full_string = "\n".join(prompts)
-    if len(full_string.split() * WORD_TO_TOKEN_RATE) >= MAX_TOKENS:
+    if len(full_string.split()) * WORD_TO_TOKEN_RATE >= MAX_TOKENS:
         print("warning, text too long. Try one file at a time")
     pyperclip.copy(full_string)
     print("Copied file templates to clipboard!")
