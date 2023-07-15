@@ -25,7 +25,7 @@ def get_prompts_from_files(pattern) -> List[str]:
 
 
 def get_file_prompt(filename):
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding="UTF8") as f:
         content = f.read()
 
     template = """
