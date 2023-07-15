@@ -3,10 +3,10 @@ import os
 from typing import List
 
 import pyperclip
-from transformers import GPT2Tokenizer
+
+WORD_TO_TOKEN_RATE = 1.6
 
 MAX_TOKENS = 3900
-tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
 
 def get_prompts_from_files(pattern) -> List[str]:
@@ -45,7 +45,7 @@ def main():
     args = parser.parse_args()
     prompts = get_prompts_from_files(args.pattern)
     full_string = "\n".join(prompts)
-    if len(tokenizer.encode(full_string)) >= MAX_TOKENS:
+    if len(full_string.split() * WORD_TO_TOKEN_RATE) >= MAX_TOKENS:
         print("warning, text too long. Try one file at a time")
     pyperclip.copy(full_string)
     print("Copied file templates to clipboard!")
